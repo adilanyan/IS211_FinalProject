@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>Dashboard <small> Welcome {{session.username}}</small></h1>
+  <a class="btn btn-success" href="/password/add"> Add Password</a>
+  <hr>
+  <table class="table table-striped">
+    <tr>
+      <th>ID</th>
+      <th>Provider</th>
+      <th>Username</th>
+      <th>Password</th>
+      <th></th>
+      <th></th>
+    </tr>
+    {% for password in passwords %}
+      <tr>
+        <td>{{password.id}}</td>
+        <td>{{password.provider}}</td>
+        <td>{{password.username}}</td>
+        <td>{{password.password}}</td>
+        <td>
+          <form action="{{url_for('delete_password', id=password.id)}}" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="Delete" class="btn btn-danger">
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %} 
